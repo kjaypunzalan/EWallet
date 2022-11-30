@@ -15,11 +15,11 @@ public class LoadScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_screen);
 
-        //after a delay, go to Login Activity
+        //after a delay, go to Dashboard Activity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(LoadScreenActivity.this, ContactsActivity.class));
+                startActivity(new Intent(LoadScreenActivity.this, DashboardActivity.class));
                 finish();
             }
         }, 5000);
