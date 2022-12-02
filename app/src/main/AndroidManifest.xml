@@ -30,10 +30,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".e_wallet.LoadScreenActivity"
+            android:name=".activities.LoadScreenActivity"
             android:exported="false" /> <!-- SPLASH SCREEN START-UP ACTIVITY -->
         <activity
-            android:name=".e_wallet.SplashScreenActivity"
+            android:name=".activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,17 +42,17 @@
             </intent-filter>
         </activity> <!-- ACTIVITIES -->
         <activity
-            android:name=".e_wallet.MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="false" /> <!-- LOGIN AND REGISTER -->
         <activity
-            android:name=".e_wallet.RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".e_wallet.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
