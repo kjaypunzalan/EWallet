@@ -40,8 +40,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-
 public class ContactsModel {
 
     //user information

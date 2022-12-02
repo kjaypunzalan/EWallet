@@ -23,6 +23,31 @@
         android:theme="@style/Theme.EWallet"
         tools:targetApi="31">
         <activity
+            android:name=".SendMoneyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".CashInActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.login.CashInActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cash_in" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activities.ProfileActivity"
             android:exported="false">
             <meta-data
@@ -42,6 +67,13 @@
             </intent-filter>
         </activity> <!-- ACTIVITIES -->
         <!-- LOGIN AND REGISTER -->
+        <activity
+            android:name=".activities.DashboardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activities.RegisterActivity"
             android:exported="false">
