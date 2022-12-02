@@ -1,4 +1,4 @@
-package com.iacademy.e_wallet.activities;
+package com.iacademy.e_wallet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                loginUser();
             }
         });
 
