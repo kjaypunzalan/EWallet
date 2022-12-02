@@ -52,6 +52,18 @@
         android:layout_marginTop="392dp"
         android:hint="Phone Number"
         android:textAllCaps="true"
+        android:textColor="@color/blue_gray"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etProfileName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="308dp"
+        android:text="Name"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,9 +72,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="500dp"
-        android:text="Password"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="480dp"
+        android:text="New Password"
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
@@ -82,8 +94,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tvProfilePassword"
-        android:layout_width="wrap_content"
+        android:id="@+id/etProfileEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="436dp"
+        android:text="Email"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etNewPassword"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="524dp"
@@ -95,8 +119,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tvProfileEmail"
-        android:layout_width="wrap_content"
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="456dp"
@@ -120,8 +144,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tvProfileName"
-        android:layout_width="wrap_content"
+        android:id="@+id/etProfileNumber"
+        android:layout_width="300dp"
+
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="328dp"

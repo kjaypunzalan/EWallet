@@ -29,8 +29,8 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView tvEditProfile;
-    private EditText tvProfileName, tvProfileNumber, tvProfileEmail, tvProfilePassword;
+    private EditText etProfileName, etProfileNumber, etProfileEmail, etNewPassword, etConfirmPassword;
+    private TextView tvLogout, tvEditProfile;
     private ImageButton ibHome, ibProfile;
     private ImageView ivProfile;
 
@@ -43,11 +43,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        tvProfileName = findViewById(R.id.tvProfileName);
-        tvProfileNumber = findViewById(R.id.tvProfileNumber);
-        tvProfileEmail = findViewById(R.id.tvProfileEmail);
-        tvProfilePassword = findViewById(R.id.tvProfilePassword);
-        tvEditProfile = findViewById(R.id.tvEditProfile);
+        etProfileEmail = findViewById(R.id.etProfileEmail);
+        etProfileNumber = findViewById(R.id.etProfileNumber);
+        etProfileName = findViewById(R.id.etProfileName);
+        etNewPassword = findViewById(R.id.etNewPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
         ivProfile = findViewById(R.id.ivProfile);
