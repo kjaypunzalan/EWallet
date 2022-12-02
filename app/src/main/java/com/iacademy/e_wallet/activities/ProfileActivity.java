@@ -1,5 +1,6 @@
 package com.iacademy.e_wallet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,9 +10,22 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.iacademy.e_wallet.R;
+import com.iacademy.e_wallet.models.ContactsModel;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -20,7 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton ibHome, ibProfile;
     private ImageView ivProfile;
 
+    //firebase variables
     private FirebaseAuth mAuth;
+    private DatabaseReference mReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +51,87 @@ public class ProfileActivity extends AppCompatActivity {
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
         ivProfile = findViewById(R.id.ivProfile);
-        tvLogout = findViewById(R.id.tvLogout);
 
+        //FIREBASE
+        mAuth = FirebaseAuth.getInstance();
+        mReference = FirebaseDatabase.getInstance().getReference();
 
-        tvLogout.setOnClickListener(new View.OnClickListener() {
+        initializeContent();
+        editProfile();
+
+    }
+    private void initializeContent() {
+
+        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid());
+        mReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                finish();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    //get value
+                    tvProfileName.setText(data.child("name").getValue().toString());
+                    tvProfileNumber.setText(data.child("number").getValue().toString());
+                    tvProfileEmail.setText(data.child("email").getValue().toString());
+                    //Picasso.get().load(data.child("barCodeURL").getValue().toString()).into(ivQR);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void editProfile() {
+        //EDIT BUTTON
+        tvEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String name = tvProfileName.getText().toString();
+                String email = tvProfileEmail.getText().toString();
+                String number = tvProfileNumber.getText().toString();
+                String password = tvProfilePassword.getText().toString();
+
+                //A. Empty Validation
+                if (name.equals(""))
+                    tvProfileName.setError("Name is required.");
+                if (email.equals(""))
+                    tvProfileName.setError("Email is required.");
+                if (number.equals(""))
+                    tvProfileNumber.setError("Number is required.");
+
+                //B. Validate Name
+                if (name.length() > 50)
+                    tvProfileName.setError("Name should not exceed 50 characters.");
+                if (name.length() < 3)
+                    tvProfileName.setError("Name should not be less than 3 characters.");
+                if (!name.matches("^([^0-9]*)$"))
+                    tvProfileName.setError("Name should not contain numbers.");
+
+                //C. Validate Number
+                if (!number.matches("^[0-9]{11}$"))
+                    tvProfileNumber.setError("Number should be 11 numerical digits.");
+
+                //D. Validate Email
+                if (email.equals(""))
+                    tvProfileName.setError("Email is required.");
+
+                /**************************
+                 * E. edit to file
+                 *------------------------*/
+                if (email.endsWith("@gmail.com") && number.matches("^[0-9]{11}$") && name.matches("^([^0-9]*)$")) {
+
+                    //show popup
+                    Toast.makeText(getApplicationContext(), "Successfully edited contact. Please wait for refresh.", Toast.LENGTH_SHORT).show();
+
+                    //write to file
+                    ContactsModel.editFile(name, email, number, mAuth);
+                    startActivity(new Intent(ProfileActivity.this, LoadScreenActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 }
