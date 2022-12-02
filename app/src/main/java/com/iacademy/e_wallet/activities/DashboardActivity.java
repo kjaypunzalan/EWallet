@@ -117,5 +117,13 @@ public class DashboardActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ibScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, SendMoneyActivity.class));
+                finish();
+            }
+        });
     }
 }
