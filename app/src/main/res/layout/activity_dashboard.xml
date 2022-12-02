@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity"
+    tools:context=".activities.DashboardActivity"
     android:background="@drawable/bg_dashboard">
 
     <TextView
@@ -121,7 +121,7 @@
         android:layout_marginStart="164dp"
         android:layout_marginTop="620dp"
         android:gravity="center"
-        android:text="Send Money"
+        android:text="Receive Money"
         android:textColor="@color/blue_gray"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

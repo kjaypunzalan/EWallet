@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity"
+    tools:context=".activities.ProfileActivity"
     android:background="@drawable/ic_bg_profile">
 
     <ImageView
@@ -187,4 +187,4 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
