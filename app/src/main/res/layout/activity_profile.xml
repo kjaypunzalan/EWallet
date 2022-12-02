@@ -25,7 +25,7 @@
         android:layout_marginTop="188dp"
         android:drawableStart="@drawable/ic_pencil"
         android:drawableTint="@color/blue_gray"
-        android:text="Edit Proffile "
+        android:text="Edit Profile "
         android:textColor="@color/blue_gray"
         android:textSize="22dp"
         android:textStyle="bold"
@@ -44,13 +44,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvProfileNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="392dp"
-        android:text="Phone Number"
+        android:hint="Phone Number"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="18dp"
@@ -81,26 +81,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvProfilePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="524dp"
-        android:text="Password"
+        android:hint="Password"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvProfileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="456dp"
-        android:text="Email"
+        android:hint="Email"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="18dp"
@@ -119,13 +119,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="328dp"
-        android:text="Name"
+        android:hint="Name"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="18dp"

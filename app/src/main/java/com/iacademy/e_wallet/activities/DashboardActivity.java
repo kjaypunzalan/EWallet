@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
         mReference = FirebaseDatabase.getInstance().getReference();
 
         initializeContent();
+        initializeButtons();
 
     }
 
@@ -74,6 +76,16 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initializeButtons() {
+        ibProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
+                finish();
             }
         });
     }
