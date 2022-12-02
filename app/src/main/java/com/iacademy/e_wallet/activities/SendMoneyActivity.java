@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.iacademy.e_wallet.R;
+
 public class SendMoneyActivity extends AppCompatActivity {
 
     @Override
