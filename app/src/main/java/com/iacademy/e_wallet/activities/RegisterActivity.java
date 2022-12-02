@@ -91,12 +91,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 if (currentUser.isEmailVerified()){
                                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                    //WRITE CONTACT TO FILE
-                                    ContactsModel.writeNewUser(name, email, number, balance, getApplicationContext(), mAuth);
                                 } else{
                                     currentUser.sendEmailVerification();
                                     Toast.makeText(RegisterActivity.this, "Please check your email to " +
                                             "verify your account", Toast.LENGTH_SHORT).show();
+                                    //WRITE CONTACT TO FILE
+                                    ContactsModel.writeNewUser(name, email, number, balance, getApplicationContext(), mAuth);
                                 }
                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             } else{

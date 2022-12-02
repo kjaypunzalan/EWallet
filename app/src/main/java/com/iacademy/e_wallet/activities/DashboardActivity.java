@@ -58,7 +58,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void initializeContent() {
 
-        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("ContactDetails");
+        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid());
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,7 +73,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Failed to send SMS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
             }
         });
     }
