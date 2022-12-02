@@ -41,9 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- ACTIVITIES -->
-        <activity
-            android:name=".activities.MainActivity"
-            android:exported="false" /> <!-- LOGIN AND REGISTER -->
+        <!-- LOGIN AND REGISTER -->
         <activity
             android:name=".activities.RegisterActivity"
             android:exported="false">
