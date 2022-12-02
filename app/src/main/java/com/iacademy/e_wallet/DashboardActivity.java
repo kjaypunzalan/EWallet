@@ -4,14 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iacademy.e_wallet.R;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private TextView tvHomeUsername, tvBalance;
-    private ImageButton ibCashin, ibQR, ibScan, ibHome, ibProfile;
+    private TextView tvHomeName, tvBalance;
+    private ImageButton ibCashin, ibScan, ibHome, ibProfile;
+    private ImageView ivQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +21,9 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         tvBalance = findViewById(R.id.tvBalance);
-        tvHomeUsername = findViewById(R.id.tvHomeUsername);
+        tvHomeName = findViewById(R.id.tvHomeName);
         ibCashin= findViewById(R.id.ibCashin);
-        ibQR= findViewById(R.id.ibQR);
+        ivQR= findViewById(R.id.ivQR);
         ibScan= findViewById(R.id.ibScan);
         ibHome= findViewById(R.id.ibHome);
         ibProfile= findViewById(R.id.ibProfile);

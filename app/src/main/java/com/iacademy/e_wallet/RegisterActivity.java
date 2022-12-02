@@ -21,7 +21,7 @@ import com.iacademy.e_wallet.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etRegEmail, etRegPassword, etPhoneNumber, etUsername;
+    private EditText etRegEmail, etRegPassword, etPhoneNumber, etName;
     private ImageButton btnRegister;
     private TextView tvLogin;
 
@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         etRegEmail = findViewById(R.id.etRegEmail);
         etRegPassword = findViewById(R.id.etRegPassword);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
-        etUsername = findViewById(R.id.etUsername);
+        etName = findViewById(R.id.etName);
         tvLogin = findViewById(R.id.tvLogin);
         btnRegister = findViewById(R.id.btnRegister);
 
@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void createUser(){
         String email = etRegEmail.getText().toString();
         String password = etRegPassword.getText().toString();
-        String name = etUsername.getText().toString();
+        String name = etName.getText().toString();
         String number = etPhoneNumber.getText().toString();
 
         if(TextUtils.isEmpty(email)){
@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
             etRegPassword.setError("Phone Number cannot be empty");
             etRegPassword.requestFocus();
         }else if(TextUtils.isEmpty(name)){
-            etRegPassword.setError("Username cannot be empty");
+            etRegPassword.setError("Name cannot be empty");
             etRegPassword.requestFocus();
         }else{
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener

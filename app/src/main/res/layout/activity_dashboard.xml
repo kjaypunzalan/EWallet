@@ -7,7 +7,6 @@
     tools:context=".DashboardActivity"
     android:background="@drawable/bg_dashboard">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvHomeUsername"
+        android:id="@+id/tvHomeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="64dp"
-        android:text="Username"
+        android:text="Name"
         android:textColor="@color/white"
         android:textSize="28dp"
         android:textStyle="bold"
@@ -61,7 +60,7 @@
         android:text="0.00"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="28dp"
+        android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,23 +68,22 @@
         android:id="@+id/ibCashin"
         android:layout_width="82dp"
         android:layout_height="80dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="108dp"
         android:layout_marginTop="300dp"
-        android:layout_marginEnd="50dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_cashin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ibQR"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="300dp"
+    <ImageView
+        android:id="@+id/ivQR"
+        android:layout_width="191dp"
+        android:layout_height="199dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="412dp"
         android:backgroundTint="@color/white"
-        android:scaleType="fitCenter"
+        android:padding="10dp"
         android:src="@drawable/ic_qr"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -93,22 +91,22 @@
 
     <ImageButton
         android:id="@+id/ibScan"
-        android:padding="10dp"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="280dp"
+        android:layout_marginStart="216dp"
         android:layout_marginTop="300dp"
+        android:background="@color/white"
+        android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_scan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue_gray"
-        android:background="@color/white"/>
+        app:tint="@color/blue_gray" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
+        android:layout_marginStart="128dp"
         android:layout_marginTop="380dp"
         android:gravity="center"
         android:text="Cash In"
@@ -120,10 +118,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="380dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="620dp"
         android:gravity="center"
-        android:text="Make QR"
+        android:text="Send Money"
         android:textColor="@color/blue_gray"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +130,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="295dp"
+        android:layout_marginStart="228dp"
         android:layout_marginTop="380dp"
         android:gravity="center"
         android:text="Scan QR"
@@ -151,23 +149,24 @@
             android:id="@+id/ibHome"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="45dp"
             android:backgroundTint="@color/white"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_home"
-            app:tint="@color/blue"
-            android:layout_gravity="center"
-            android:layout_marginEnd="50dp"/>
+            app:tint="@color/blue">
+        </ImageButton>
 
         <ImageButton
             android:id="@+id/ibProfile"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="45dp"
             android:backgroundTint="@color/white"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile"
-            app:tint="@color/blue"
-            android:layout_gravity="center"
-            android:layout_marginStart="50dp"/>
+            app:tint="@color/blue" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
