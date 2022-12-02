@@ -56,9 +56,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvProfileName"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etProfileName"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="308dp"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="480dp"
-        android:text="Password"
+        android:text="New Password"
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
@@ -93,9 +93,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvProfileEmail"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etProfileEmail"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="436dp"
@@ -105,9 +105,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvProfilePassword"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etNewPassword"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="504dp"
@@ -117,9 +117,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvProfilePassword2"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="572dp"
@@ -141,9 +141,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvProfileNumber"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etProfileNumber"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="372dp"

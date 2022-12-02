@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +15,8 @@ import com.iacademy.e_wallet.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView tvProfileName, tvProfileNumber, tvProfileEmail, tvProfilePassword, tvLogout;
+    private EditText etProfileName, etProfileNumber, etProfileEmail, etNewPassword, etConfirmPassword;
+    private TextView tvLogout, tvEditProfile;
     private ImageButton ibHome, ibProfile;
     private ImageView ivProfile;
 
@@ -25,10 +27,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        tvProfileEmail = findViewById(R.id.tvProfileEmail);
-        tvProfileNumber = findViewById(R.id.tvProfileNumber);
-        tvProfileName = findViewById(R.id.tvProfileName);
-        tvProfilePassword = findViewById(R.id.tvProfilePassword);
+        etProfileEmail = findViewById(R.id.etProfileEmail);
+        etProfileNumber = findViewById(R.id.etProfileNumber);
+        etProfileName = findViewById(R.id.etProfileName);
+        etNewPassword = findViewById(R.id.etNewPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
         ivProfile = findViewById(R.id.ivProfile);
