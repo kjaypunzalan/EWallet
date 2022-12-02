@@ -1,4 +1,4 @@
-package com.iacademy.e_wallet.activities;
+package com.iacademy.e_wallet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
