@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.iacademy.e_wallet.R;
 
 
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
 //                loginUser();
             }
         });
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(LoginActivity.this, "User logged in successfully",
                                         Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                                 finish();
                             }else{
                                 Toast.makeText(LoginActivity.this, "Login Error: " + task
