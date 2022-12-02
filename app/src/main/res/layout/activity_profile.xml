@@ -25,7 +25,7 @@
         android:layout_marginTop="188dp"
         android:drawableStart="@drawable/ic_pencil"
         android:drawableTint="@color/blue_gray"
-        android:text="Edit Proffile "
+        android:text="Edit Profile "
         android:textColor="@color/blue_gray"
         android:textSize="22dp"
         android:textStyle="bold"
@@ -41,10 +41,12 @@
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/etProfileName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -53,6 +55,7 @@
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/etProfileNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,10 +68,12 @@
         android:text="Name"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -77,21 +82,24 @@
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/etNewPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="548dp"
         android:text="Confirm Password"
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/etConfirmPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/etProfileEmail"
@@ -102,6 +110,7 @@
         android:text="Email"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,6 +123,7 @@
         android:text="Password"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -121,15 +131,18 @@
         android:id="@+id/etConfirmPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="572dp"
         android:text="Confirm Password"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -138,6 +151,7 @@
         android:textAllCaps="true"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/etProfileEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -150,6 +164,7 @@
         android:text="Phone Number"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
