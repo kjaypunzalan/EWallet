@@ -14,4 +14,14 @@
     <color name="blue_gray">#769dbb</color>
     <color name="gray">#BEBEBE</color>
 
+    //OTHER COLORS
+    <color name="primary">#60EFFF</color>
+    <color name="yellow">#FFCC00</color>
+    <color name="dark">#333F50</color>
+    <color name="ashgray">#595959</color>
+    <color name="green">#00B050</color>
+    <color name="red">#C00000</color>
+    <color name="orange">#FFC000</color>
+
+
 </resources>

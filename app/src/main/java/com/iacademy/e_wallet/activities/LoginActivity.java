@@ -1,4 +1,4 @@
-package com.iacademy.e_wallet;
+package com.iacademy.e_wallet.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

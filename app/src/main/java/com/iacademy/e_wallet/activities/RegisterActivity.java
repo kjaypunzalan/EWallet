@@ -1,4 +1,4 @@
-package com.iacademy.e_wallet;
+package com.iacademy.e_wallet.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,12 +19,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.iacademy.e_wallet.R;
+import com.iacademy.e_wallet.models.ContactsModel;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etRegEmail, etRegPassword, etPhoneNumber, etName;
     private ImageButton btnRegister;
     private TextView tvLogin;
+
 
     private FirebaseAuth mAuth;
 
@@ -59,10 +62,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createUser(){
+        String name = etName.getText().toString();
         String email = etRegEmail.getText().toString();
         String password = etRegPassword.getText().toString();
-        String name = etName.getText().toString();
         String number = etPhoneNumber.getText().toString();
+        Double balance = 0.00;
 
         if(TextUtils.isEmpty(email)){
             etRegEmail.setError("Email cannot be empty");
@@ -81,17 +85,21 @@ public class RegisterActivity extends AppCompatActivity {
                     (new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+
                             if(task.isSuccessful()){
                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
                                 if (currentUser.isEmailVerified()){
                                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                }else{
+                                    //WRITE CONTACT TO FILE
+                                    ContactsModel.writeNewUser(name, email, number, balance, getApplicationContext(), mAuth);
+                                } else{
                                     currentUser.sendEmailVerification();
                                     Toast.makeText(RegisterActivity.this, "Please check your email to " +
                                             "verify your account", Toast.LENGTH_SHORT).show();
                                 }
                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                            }else{
+                            } else{
                                 Toast.makeText(RegisterActivity.this, "Registration Error: " + task
                                         .getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
