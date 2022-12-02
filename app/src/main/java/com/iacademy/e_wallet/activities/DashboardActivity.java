@@ -72,6 +72,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         onStart();
         initializeContent();
+        initializeButtons();
 
     }
 
@@ -104,6 +105,16 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initializeButtons() {
+        ibProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
+                finish();
             }
         });
     }

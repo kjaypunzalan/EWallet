@@ -204,13 +204,7 @@ public class ContactsModel {
     public static void editFile(String name,
                                 String email,
                                 String number,
-                                Context context,
-                                DatabaseReference mReference,
-                                FirebaseAuth mAuth,
-                                StorageReference storageRef,
-                                ImageView ivAvatar,
-                                int position,
-                                ArrayList<ContactsModel> listModels) {
+                                FirebaseAuth mAuth) {
 
         HashMap hashMap = new HashMap();
         hashMap.put("name", name);
@@ -227,59 +221,11 @@ public class ContactsModel {
         FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();       //firebase instance
         final DatabaseReference reference = firebaseDB.getReference();      //firebase reference
 
-        //REFERENCE USER AND CONTACT
-        DatabaseReference referenceUser = reference.child("Users").child(mAuth.getCurrentUser().getUid());  //user uid
-        //DatabaseReference referenceContact = referenceUser.child(listModels.get(position).getKey()); WAIT                                   //push contact key
+        //REFERENCE USER
+        DatabaseReference referenceUser = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("ContactDetails");
 
-        /*********************
-         * AVATAR!!!!!!!
-         */
-        try {
-            //long unixTime = System.currentTimeMillis() / 1000L;
-            storageRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("image - " + number + ".jpg").delete();
-            StorageReference imageRef = storageRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("image - " + number + ".jpg");
-
-            Bitmap bitmap = ((BitmapDrawable) ivAvatar.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] data = baos.toByteArray();
-
-            UploadTask uploadTask = imageRef.putBytes(data);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //Toast.makeText(context, imageRef.getPath(), Toast.LENGTH_SHORT).show();
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            //PUT TO REALTIME DATABASE
-                            String imageReference = uri.toString();
-                            hashMap.put("imageURL", imageReference);
-
-                            //UPDATE DATA
-                            //referenceContact.updateChildren(hashMap); WAIT
-                        }
-                    });
-                }
-            });
-        } catch (Exception e) {
-            //UPDATE DATA
-            //referenceContact.updateChildren(hashMap); WAIT
-        }
-    }
-
-    /**************************
-     * D. delete from firebase
-     *------------------------*/
-    public static void deleteFromFile(String number,
-                                      DatabaseReference mReference,
-                                      FirebaseAuth mAuth,
-                                      StorageReference storageRef,
-                                      int position,
-                                      ArrayList<ContactsModel> listModels) {
-
-        storageRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("image - " + number + ".jpg").delete();
-        //mReference.child("Users").child(mAuth.getCurrentUser().getUid()).child(listModels.get(position).getKey()).removeValue(); WAIT
+        //UPDATE INFORMATION
+        referenceUser.updateChildren(hashMap);
     }
 
     /**************************
