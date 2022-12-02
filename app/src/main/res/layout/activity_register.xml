@@ -57,14 +57,14 @@
         android:hint="  Name"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColorHint="@color/blue_gray"
         android:textColor="@color/blue_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/blue_gray"
+        app:layout_constraintBottom_toTopOf="@+id/etPhoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/etPhoneNumber"
@@ -77,14 +77,14 @@
         android:inputType="number"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColorHint="@color/blue_gray"
         android:textColor="@color/blue_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/blue_gray"
+        app:layout_constraintBottom_toTopOf="@+id/etRegEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.564" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/etRegEmail"
@@ -97,14 +97,14 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColorHint="@color/blue_gray"
         android:textColor="@color/blue_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/blue_gray"
+        app:layout_constraintBottom_toTopOf="@+id/etRegPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.654" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/etRegPassword"
@@ -117,8 +117,8 @@
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColorHint="@color/blue_gray"
         android:textColor="@color/blue_gray"
+        android:textColorHint="@color/blue_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -44,27 +44,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.363" />
 
+
     <EditText
         android:id="@+id/etLogEmail"
         android:layout_width="300dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="57dp"
         android:background="@drawable/custom_input_top"
         android:drawableStart="@drawable/ic_email"
         android:drawableTint="@color/blue_gray"
         android:hint="  Email"
-        android:textColor="@color/blue_gray"
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:textColor="@color/blue_gray"
         android:textColorHint="@color/blue_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/etLogPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-
+        app:layout_constraintVertical_bias="0.991" />
 
     <EditText
         android:id="@+id/etLogPassword"
@@ -74,10 +74,10 @@
         android:drawableStart="@drawable/ic_lock"
         android:drawableTint="@color/blue_gray"
         android:hint="  Password"
-        android:textColor="@color/blue_gray"
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:textColor="@color/blue_gray"
         android:textColorHint="@color/blue_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
