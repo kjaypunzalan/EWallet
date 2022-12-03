@@ -117,7 +117,6 @@ public class SendMoneyActivity extends AppCompatActivity {
                 double amountToSend = Double.parseDouble(etAmount.getText().toString());
                 double receiverTotal = receiverBalance + amountToSend;
                 double senderTotal = senderBalance - amountToSend;
-                boolean isSender = true;
 
                 if (amountToSend >  senderBalance)
                     Toast.makeText(getApplicationContext(), "Insufficient Fund.", Toast.LENGTH_SHORT).show();
@@ -130,7 +129,7 @@ public class SendMoneyActivity extends AppCompatActivity {
                             amountToSend, receiverTotal, senderTotal,
                             receiverName, receiverNumber,
                             senderName, senderNumber,
-                            barcodeValue, mAuth, true);
+                            barcodeValue, mAuth);
 
                     //start activity
                     startActivity(new Intent(SendMoneyActivity.this, LoadScreenActivity.class));
