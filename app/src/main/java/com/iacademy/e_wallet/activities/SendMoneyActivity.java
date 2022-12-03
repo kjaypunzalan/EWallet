@@ -119,6 +119,7 @@ public class SendMoneyActivity extends AppCompatActivity {
 
                 //set layout value
                 etNumber.setText(receiverNumber);
+                tvSendName.setText(receiverName);
             }
 
             @Override
@@ -140,6 +141,7 @@ public class SendMoneyActivity extends AppCompatActivity {
 
                 //set layout value
                 tvAvailBalance.setText(String.valueOf(senderBalance));
+
             }
 
             @Override
