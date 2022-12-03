@@ -116,10 +116,11 @@
         android:id="@+id/bSendMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="600dp"
-        android:text="Send"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="596dp"
         android:backgroundTint="@color/blue"
+        android:text="Send Money"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
