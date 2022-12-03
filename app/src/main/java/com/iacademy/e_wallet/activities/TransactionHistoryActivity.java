@@ -112,6 +112,15 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Rec
                 finish();
             }
         });
+
+        ibLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(TransactionHistoryActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override

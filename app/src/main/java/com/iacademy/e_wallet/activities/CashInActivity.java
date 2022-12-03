@@ -136,6 +136,15 @@ public class CashInActivity extends AppCompatActivity {
             }
         });
 
+        ibLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(CashInActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
         bConfirmCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

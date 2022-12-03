@@ -54,14 +54,6 @@ public class DashboardActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mReference = FirebaseDatabase.getInstance().getReference();
 
-        ibHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
 
         onStart();
         initializeContent();
@@ -129,6 +121,15 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DashboardActivity.this, TransactionHistoryActivity.class));
+                finish();
+            }
+        });
+
+        ibLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
                 finish();
             }
         });

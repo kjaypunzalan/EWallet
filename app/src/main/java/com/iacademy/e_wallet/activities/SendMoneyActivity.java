@@ -162,6 +162,15 @@ public class SendMoneyActivity extends AppCompatActivity {
             }
         });
 
+        ibLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(SendMoneyActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
         bSendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
