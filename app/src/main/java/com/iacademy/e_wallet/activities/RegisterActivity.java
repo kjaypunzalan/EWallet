@@ -77,6 +77,9 @@ public class RegisterActivity extends AppCompatActivity {
         }else if(TextUtils.isEmpty(number)){
             etRegPassword.setError("Phone Number cannot be empty");
             etRegPassword.requestFocus();
+        }else if(!number.matches("^[0-9]{11}$")){
+            etRegPassword.setError("Number should be 11 numerical digits.");
+            etRegPassword.requestFocus();
         }else if(TextUtils.isEmpty(name)){
             etRegPassword.setError("Name cannot be empty");
             etRegPassword.requestFocus();

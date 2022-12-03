@@ -38,33 +38,25 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class ContactsModel {
 
     //user information
-    private String name;
-    private String email;
-    private String number;
-
-    //money
+    private String name, email, number, barCodeURL;
     private double balance;
-    private String barCodeURL;
-
 
 
     //constructor
     public ContactsModel(){};
-    public ContactsModel(String name, String email, String number) {
+    //create user constructor
+    public ContactsModel(String name, String email, String number, String barCodeURL, double balance) {
         this.name = name;
         this.email = email;
         this.number = number;
-    }
-    public ContactsModel(String name, String email, String number, String barCodeURL, double totalMoney) {
-        this.name = name;
-        this.email = email;
-        this.number = number;
-        this.balance = totalMoney;
+        this.balance = balance;
         this.barCodeURL = barCodeURL;
     }
 
@@ -83,6 +75,7 @@ public class ContactsModel {
 
     public double getBalance() { return balance; }
     public void setBalance(double balance) { this.balance = balance; }
+
 
 
     /**************************
@@ -145,12 +138,13 @@ public class ContactsModel {
 
         //REFERENCE USER AND CONTACT
         DatabaseReference referenceUser = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid());  //user uid
-        DatabaseReference referenceContact = referenceUser.child("ContactDetails");                                          //push contact key
+        DatabaseReference referenceContact = referenceUser.child("WalletDetails");                                          //push contact key
 
         /*********************
          * QR CODE!!!!!!!
          *********************/
         //initializing MultiFormatWriter for QR code
+        String barcodeValue = mAuth.getCurrentUser().getUid();
         MultiFormatWriter mWriter = new MultiFormatWriter();
         try {
             //INITIALIZE FIREBASE STORAGE
@@ -158,7 +152,7 @@ public class ContactsModel {
             StorageReference barcodeRef = storageRef.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("image - " + number + ".jpg");
 
             //ENCODE AND GET BITMAP
-            BitMatrix mMatrix = mWriter.encode(number, BarcodeFormat.QR_CODE, 400,400); //encode number!!!
+            BitMatrix mMatrix = mWriter.encode(barcodeValue, BarcodeFormat.QR_CODE, 400,400); //encode user id!!!
             BarcodeEncoder mEncoder = new BarcodeEncoder();
             Bitmap bitmap = mEncoder.createBitmap(mMatrix); //creating bitmap of code
 
@@ -201,10 +195,10 @@ public class ContactsModel {
     /**************************
      * C. edit to firebase
      *------------------------*/
-    public static void editFile(String name,
-                                String email,
-                                String number,
-                                FirebaseAuth mAuth) {
+    public static void editProfile(String name,
+                                   String email,
+                                   String number,
+                                   FirebaseAuth mAuth) {
 
         HashMap hashMap = new HashMap();
         hashMap.put("name", name);
@@ -222,65 +216,129 @@ public class ContactsModel {
         final DatabaseReference reference = firebaseDB.getReference();      //firebase reference
 
         //REFERENCE USER
-        DatabaseReference referenceUser = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("ContactDetails");
-
-        //UPDATE INFORMATION
-        referenceUser.updateChildren(hashMap);
+        DatabaseReference referenceUser = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("WalletDetails");
+        referenceUser.updateChildren(hashMap);  //updateInformation
     }
 
     /**************************
-     * E. upload image
+     * D. send money / update firebase
      *------------------------*/
-    public static void uploadImage(Context context,
-                                   pl.droidsonroids.gif.GifImageView btnCamera,
-                                   pl.droidsonroids.gif.GifImageView btnGallery,
-                                   ActivityResultLauncher<Intent> cameraIntentLauncher,
-                                   ActivityResultLauncher<Intent> galleryIntentLauncher,
-                                   Activity activity) {
+    public static void sendMoney(
+            double amountSent,
+            double receiverNewBalance,
+            double senderNewBalance,
+            String receiverName,
+            String receiverNumber,
+            String senderName,
+            String senderNumber,
+            String barcodeValue,
+            FirebaseAuth mAuth,
+            boolean isSender) {
 
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*******************
-                 * REQUEST PERMISSION
-                 *******************/
-                String[] PERMISSIONS = {Manifest.permission.CAMERA};
-                if(!hasPermissions(context, PERMISSIONS)){
-                    ActivityCompat.requestPermissions(activity, PERMISSIONS, 1);
-                }else {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntentLauncher.launch(intent);
-                }
-            }
-        });
+        //FIREBASE INSTANTIATION
+        FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();       //firebase instance
+        final DatabaseReference reference = firebaseDB.getReference();      //firebase reference
 
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                getIntent.setType("image/*");
+        /*********************
+         * HASHMAP UPDATES
+         *-------------------*/
+        HashMap receiverHashMap = new HashMap();
+        receiverHashMap.put("balance", receiverNewBalance);
 
-                Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                pickIntent.setType("image/*");
+        HashMap senderHashMap = new HashMap();
+        senderHashMap.put("balance", senderNewBalance);
 
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
 
-                galleryIntentLauncher.launch(chooserIntent);
-            }
-        });
-    }
+        /*********************
+         * RECEIVER UPDATE
+         *-------------------*/
+        //REFERENCE USER AND CONTACT
+        DatabaseReference receiverReference = reference.child("PKash").child("Users").child(barcodeValue).child("WalletDetails");
+        receiverReference.updateChildren(receiverHashMap);  //updateInformation
 
-    /**************************
-     * F. image upload permission
-     *------------------------*/
-    private static boolean hasPermissions(Context context, String... permissions){
-        for(String permission : permissions){
-            if(ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED){
-                return false;
-            }
+        /*********************
+         * SENDER UPDATE
+         *-------------------*/
+        //POPULATE DATA
+        DatabaseReference senderReference = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("WalletDetails");
+        senderReference.updateChildren(senderHashMap);  //updateInformation
+
+
+
+        /*******************************
+         * TRANSACTION HISTORY
+         *-----------------------------*/
+        //REFERENCE USER AND CONTACT
+        DatabaseReference receiverTransactionRef = reference.child("PKash").child("Users").child(barcodeValue).child("TransactionHistory").push();
+        DatabaseReference senderTransactionRef = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("TransactionHistory").push();
+        Date currentTime = Calendar.getInstance().getTime();
+        String timeAndDate = String.valueOf(currentTime);
+
+        if(isSender == true) {
+            //you have sent PHP AMOUNTSENT to RECEIVERNAME (RECEIVERNUMBER) on DATAANDTIME.
+            //your new balance is PHP SENDERBALANCE
+            TransactionModel addHistory = new TransactionModel(amountSent, receiverName, receiverNumber, timeAndDate, senderNewBalance);
+            senderTransactionRef.child("amountSent").setValue(addHistory.getAmountSent());
+            senderTransactionRef.child("receiverName").setValue(addHistory.getReceiverName());
+            senderTransactionRef.child("receiverNumber").setValue(addHistory.getReceiverNumber());
+            senderTransactionRef.child("timeAndDate").setValue(addHistory.getTimeAndDate());
+            senderTransactionRef.child("senderNewBalance").setValue(addHistory.getSenderNewBalance());
+            senderTransactionRef.child("transactionType").setValue("SENT MONEY");
+        } else {
+            //you have received PHP AMOUNTSENT from SENDERNAME (SENDERNUMBER) on DATAANDTIME.
+            //your new balance is PHP RECEIVERBALANCE
+            TransactionModel addHistory = new TransactionModel(senderName, senderNumber, timeAndDate, receiverNewBalance, amountSent);
+            receiverTransactionRef.child("senderName").setValue(addHistory.getSenderName());
+            receiverTransactionRef.child("senderNumber").setValue(addHistory.getSenderNumber());
+            receiverTransactionRef.child("timeAndDate").setValue(addHistory.getTimeAndDate());
+            receiverTransactionRef.child("receiverNewBalance").setValue(addHistory.getReceiverNewBalance());
+            receiverTransactionRef.child("amountReceived").setValue(addHistory.getAmountReceived());
+            receiverTransactionRef.child("transactionType").setValue("RECEIVED MONEY");
         }
 
-        return true;
     }
+
+
+
+    /**************************
+     * E. deposit / update firebase
+     *------------------------*/
+    public static void depositMoney(double amountSent, double senderTotal, FirebaseAuth mAuth) {
+
+        //FIREBASE INSTANTIATION
+        FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();       //firebase instance
+        final DatabaseReference reference = firebaseDB.getReference();      //firebase reference
+
+        /*********************
+         * HASHMAP UPDATES
+         *-------------------*/
+        HashMap senderHashMap = new HashMap();
+        senderHashMap.put("balance", senderTotal);
+
+        /*********************
+         * SENDER UPDATE
+         *-------------------*/
+        //POPULATE DATA
+        DatabaseReference senderReference = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("WalletDetails");
+        senderReference.updateChildren(senderHashMap);  //updateInformation
+
+
+        /*******************************
+         * TRANSACTION HISTORY
+         *-----------------------------*/
+        //REFERENCE USER AND CONTACT
+        DatabaseReference senderTransactionRef = reference.child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("TransactionHistory").push();  //user uid
+        Date currentTime = Calendar.getInstance().getTime();
+        String timeAndDate = String.valueOf(currentTime);
+
+
+        //you have deposited PHP AMOUNTSENT on DATAANDTIME
+        //your new balance is PHP SENDERBALANCE
+        TransactionModel addHistory = new TransactionModel(amountSent, timeAndDate, senderTotal);
+        senderTransactionRef.child("amountSent").setValue(addHistory.getAmountSent());
+        senderTransactionRef.child("timeAndDate").setValue(addHistory.getTimeAndDate());
+        senderTransactionRef.child("senderNewBalance").setValue(addHistory.getSenderNewBalance());
+        senderTransactionRef.child("transactionType").setValue("DEPOSIT");
+    }
+
 }
