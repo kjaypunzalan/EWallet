@@ -223,8 +223,7 @@ public class WalletModel {
             String senderName,
             String senderNumber,
             String barcodeValue,
-            FirebaseAuth mAuth,
-            boolean isSender) {
+            FirebaseAuth mAuth) {
 
         //FIREBASE INSTANTIATION
         FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();       //firebase instance
@@ -265,27 +264,26 @@ public class WalletModel {
         Date currentTime = Calendar.getInstance().getTime();
         String timeAndDate = String.valueOf(currentTime);
 
-        if(isSender == true) {
-            //you have sent PHP AMOUNTSENT to RECEIVERNAME (RECEIVERNUMBER) on DATAANDTIME.
-            //your new balance is PHP SENDERBALANCE
-            TransactionModel addHistory = new TransactionModel(amountSent, receiverName, receiverNumber, timeAndDate, senderNewBalance);
-            senderTransactionRef.child("amountSent").setValue(addHistory.getAmountSent());
-            senderTransactionRef.child("receiverName").setValue(addHistory.getReceiverName());
-            senderTransactionRef.child("receiverNumber").setValue(addHistory.getReceiverNumber());
-            senderTransactionRef.child("timeAndDate").setValue(addHistory.getTimeAndDate());
-            senderTransactionRef.child("senderNewBalance").setValue(addHistory.getSenderNewBalance());
-            senderTransactionRef.child("transactionType").setValue("SENT MONEY");
-        } else {
-            //you have received PHP AMOUNTSENT from SENDERNAME (SENDERNUMBER) on DATAANDTIME.
-            //your new balance is PHP RECEIVERBALANCE
-            TransactionModel receiveHistory = new TransactionModel(senderName, senderNumber, timeAndDate, receiverNewBalance, amountSent);
-            receiverTransactionRef.child("senderName").setValue(receiveHistory.getSenderName());
-            receiverTransactionRef.child("senderNumber").setValue(receiveHistory.getSenderNumber());
-            receiverTransactionRef.child("timeAndDate").setValue(receiveHistory.getTimeAndDate());
-            receiverTransactionRef.child("receiverNewBalance").setValue(receiveHistory.getReceiverNewBalance());
-            receiverTransactionRef.child("amountReceived").setValue(receiveHistory.getAmountReceived());
-            receiverTransactionRef.child("transactionType").setValue("RECEIVED MONEY");
-        }
+        //you have sent PHP AMOUNTSENT to RECEIVERNAME (RECEIVERNUMBER) on DATAANDTIME.
+        //your new balance is PHP SENDERBALANCE
+        TransactionModel addHistory = new TransactionModel(amountSent, receiverName, receiverNumber, timeAndDate, senderNewBalance);
+        senderTransactionRef.child("amountSent").setValue(addHistory.getAmountSent());
+        senderTransactionRef.child("receiverName").setValue(addHistory.getReceiverName());
+        senderTransactionRef.child("receiverNumber").setValue(addHistory.getReceiverNumber());
+        senderTransactionRef.child("timeAndDate").setValue(addHistory.getTimeAndDate());
+        senderTransactionRef.child("senderNewBalance").setValue(addHistory.getSenderNewBalance());
+        senderTransactionRef.child("transactionType").setValue("SENT MONEY");
+
+        //you have received PHP AMOUNTSENT from SENDERNAME (SENDERNUMBER) on DATAANDTIME.
+        //your new balance is PHP RECEIVERBALANCE
+        TransactionModel receiveHistory = new TransactionModel(senderName, senderNumber, timeAndDate, receiverNewBalance, amountSent);
+        receiverTransactionRef.child("senderName").setValue(receiveHistory.getSenderName());
+        receiverTransactionRef.child("senderNumber").setValue(receiveHistory.getSenderNumber());
+        receiverTransactionRef.child("timeAndDate").setValue(receiveHistory.getTimeAndDate());
+        receiverTransactionRef.child("receiverNewBalance").setValue(receiveHistory.getReceiverNewBalance());
+        receiverTransactionRef.child("amountReceived").setValue(receiveHistory.getAmountReceived());
+        receiverTransactionRef.child("transactionType").setValue("RECEIVED MONEY");
+
 
     }
 
