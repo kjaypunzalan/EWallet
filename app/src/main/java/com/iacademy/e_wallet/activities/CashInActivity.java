@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class CashInActivity extends AppCompatActivity {
     private EditText etAmount;
     private TextView tvCurrentBalance;
     private Button bConfirmCash;
+    private ImageButton ibLogout;
 
     //firebase variables
     private FirebaseAuth mAuth;
@@ -39,6 +41,7 @@ public class CashInActivity extends AppCompatActivity {
         etAmount = findViewById(R.id.etAmount);
         tvCurrentBalance = findViewById(R.id.tvCurrentBalance);
         bConfirmCash = findViewById(R.id.bConfirmCash);
+        ibLogout = findViewById(R.id.ibLogout);
 
         //FIREBASE
         mAuth = FirebaseAuth.getInstance();

@@ -43,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
         etNewPassword = findViewById(R.id.etNewPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         tvEditProfile = findViewById(R.id.tvEditProfile);
-        tvLogout = findViewById(R.id.tvLogout);
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
         ivProfile = findViewById(R.id.ivProfile);

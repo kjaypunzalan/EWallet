@@ -5,35 +5,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/bg_list_background"
-    android:background="@drawable/custom_input_round"
-    android:layout_height="120dp">
+    android:layout_height="120dp"
+    android:background="@drawable/custom_input_cardview">
 
     <TextView
         android:id="@+id/tv_amount"
-        android:layout_width="114dp"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_weight="1"
         android:gravity="left"
         android:text="Amount"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_gray"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.136" />
 
-
     <TextView
         android:id="@+id/tv_transactionType"
-        android:layout_width="203dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
         android:text="Transaction Type"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textColor="@color/blue_gray"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.923"
@@ -43,51 +43,51 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="23dp"
         android:layout_weight="1"
         android:gravity="left"
         android:text="Contact Name"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_gray"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.391" />
 
     <TextView
         android:id="@+id/tv_number"
-        android:layout_width="225dp"
+        android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_weight="1"
         android:gravity="left"
         android:text="Contact Number"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_gray"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.622" />
 
     <TextView
         android:id="@+id/tv_timeAndDate"
-        android:layout_width="271dp"
+        android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_weight="1"
         android:gravity="left"
         android:text="Time And Date"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_gray"
         android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.846" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
