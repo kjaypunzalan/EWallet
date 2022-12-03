@@ -71,7 +71,7 @@
         android:drawableStart="@drawable/ic_peso"
         android:drawableTint="@color/blue_gray"
         android:hint=" Amount"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:textColor="@color/blue_gray"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"

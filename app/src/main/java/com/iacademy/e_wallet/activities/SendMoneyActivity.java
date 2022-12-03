@@ -2,9 +2,14 @@ package com.iacademy.e_wallet.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,13 +26,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
 import com.iacademy.e_wallet.models.WalletModel;
 
+import java.util.ArrayList;
+
 public class SendMoneyActivity extends AppCompatActivity {
 
     //declare layout variables
     private EditText etNumber, etAmount;
     private TextView tvAvailBalance, tvSendName;
     private Button bSendMoney;
-    private ImageButton ibLogout;
+    private ImageButton ibHome, ibProfile, ibLogout;
 
     //barcode/receiver variable
     private String barcodeValue, receiverName, receiverNumber;
@@ -36,6 +43,9 @@ public class SendMoneyActivity extends AppCompatActivity {
     //sender variables
     private String senderName, senderNumber;
     private double senderBalance;
+
+    //SEND SMS
+    private static final int PERMISSIONS_REQUEST_SMS_SEND = 1;
 
     //firebase variables
     private FirebaseAuth mAuth;
@@ -52,6 +62,8 @@ public class SendMoneyActivity extends AppCompatActivity {
         tvAvailBalance = findViewById(R.id.tvAvailBalance);
         tvSendName = findViewById(R.id.tvSendName);
         bSendMoney = findViewById(R.id.bSendMoney);
+        ibHome = findViewById(R.id.ibHome);
+        ibProfile = findViewById(R.id.ibProfile);
         ibLogout = findViewById(R.id.ibLogout);
 
         //FIREBASE
@@ -65,6 +77,26 @@ public class SendMoneyActivity extends AppCompatActivity {
 
         initializeContent();
         initializeButtons();
+    }
+
+    /*******************
+     * REQUEST PERMISSION
+     *******************/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {super
+            .onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch(requestCode) {
+            case PERMISSIONS_REQUEST_SMS_SEND:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults.length > 0) {
+                    initializeButtons();
+                }
+                break;
+            default:
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show(); finish();
+                break;
+        }
     }
 
     private void initializeContent() {
@@ -103,7 +135,6 @@ public class SendMoneyActivity extends AppCompatActivity {
 
                 //set layout value
                 tvAvailBalance.setText(String.valueOf(senderBalance));
-
             }
 
             @Override
@@ -114,6 +145,22 @@ public class SendMoneyActivity extends AppCompatActivity {
     }
 
     private void initializeButtons() {
+
+        ibHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SendMoneyActivity.this, DashboardActivity.class));
+                finish();
+            }
+        });
+
+        ibProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SendMoneyActivity.this, ProfileActivity.class));
+                finish();
+            }
+        });
 
         bSendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +181,32 @@ public class SendMoneyActivity extends AppCompatActivity {
                             receiverName, receiverNumber,
                             senderName, senderNumber,
                             barcodeValue, mAuth);
+
+                    //send SMS
+                    if(ContextCompat.checkSelfPermission(SendMoneyActivity.this, Manifest.permission.SEND_SMS)
+                            == PackageManager.PERMISSION_GRANTED){
+
+                        //send sms
+                        SmsManager sms = SmsManager.getDefault();
+                        String senderMessage, receiverMessage;
+
+                        //SEND MESSAGE
+                        senderMessage = "You have SENT PHP " + amountToSend + " of PKash to " + receiverName
+                                + " (" + receiverNumber + "). Your new balance is PHP " + senderTotal;
+                        receiverMessage = "You have RECEIVED PHP " + amountToSend + " of PKash from " + senderName
+                                + " (" + senderNumber + "). Your new balance is PHP " + receiverTotal;
+
+                        //SEND TEXT MESSAGE DEPENDING ON MESSAGE LENGTH
+                        ArrayList<String> messagelist = sms.divideMessage(senderMessage);
+                        sms.sendMultipartTextMessage(senderNumber, null, messagelist, null, null);
+                        messagelist = sms.divideMessage(receiverMessage);
+                        sms.sendMultipartTextMessage(receiverNumber, null, messagelist, null, null);
+                    } else{
+                        ActivityCompat.requestPermissions(SendMoneyActivity.this, new String[]{Manifest
+                                .permission.SEND_SMS}, PERMISSIONS_REQUEST_SMS_SEND);
+                    }
+
+
 
                     //start activity
                     startActivity(new Intent(SendMoneyActivity.this, LoadScreenActivity.class));

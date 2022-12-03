@@ -29,16 +29,11 @@ import java.util.ArrayList;
 public class TransactionHistoryActivity extends AppCompatActivity implements RecyclerOnItemClickListener {
 
     //DECLARE VARIABLES
-    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
-    private TransactionModel contactInfo;
     private RecyclerView rvTransactionList;
     private ArrayList<TransactionModel> listModels = new ArrayList<>();
     private ArrayList<String> keys = new ArrayList<>();
 
     private ImageButton ibTransHome, ibTransProfile, ibLogout;
-    private String name;
-    private String email;
-    private String number;
 
     private RecyclerOnItemClickListener roicl;
 
