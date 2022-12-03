@@ -6,21 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.DashboardActivity"
     android:background="@drawable/bg_dashboard">
-    <ImageButton
-        android:id="@+id/ib_History"
-        android:layout_width="61dp"
-        android:layout_height="71dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/white"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468"
-        app:tint="@color/blue" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,10 +31,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+    <ImageButton
+        android:id="@+id/ibCashin"
+        android:layout_width="82dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="300dp"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_cashin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibScan"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="300dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_scan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue_gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="304dp"
+        android:layout_marginTop="380dp"
+        android:gravity="center"
+        android:text="History"
+        android:textColor="@color/blue_gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="380dp"
+        android:gravity="center"
+        android:text="Cash In"
+        android:textColor="@color/blue_gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="380dp"
+        android:gravity="center"
+        android:text="Scan QR"
+        android:textColor="@color/blue_gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_History"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_history"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.418"
+        app:tint="@color/blue_gray" />
+
+
+
     <ImageView
         android:id="@+id/ivBalance"
         android:layout_width="wrap_content"
         android:layout_height="240dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="84dp"
         android:src="@drawable/cv_cash"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,85 +147,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ibCashin"
-        android:layout_width="82dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="300dp"
-        android:backgroundTint="@color/white"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_cashin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/ivQR"
-        android:layout_width="191dp"
-        android:layout_height="199dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="412dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="428dp"
         android:padding="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/ibScan"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="300dp"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_scan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue_gray" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="380dp"
-        android:gravity="center"
-        android:text="Cash In"
-        android:textColor="@color/blue_gray"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="620dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="676dp"
         android:gravity="center"
         android:text="Receive Money"
-        android:textColor="@color/blue_gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="228dp"
-        android:layout_marginTop="380dp"
-        android:gravity="center"
-        android:text="Scan QR"
-        android:textColor="@color/blue_gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="328dp"
-        android:layout_marginTop="380dp"
-        android:gravity="center"
-        android:text="History"
         android:textColor="@color/blue_gray"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +181,7 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="120dp"
             android:backgroundTint="@color/white"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_home"
@@ -186,15 +193,24 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="45dp"
             android:backgroundTint="@color/white"
+            android:layout_marginStart=".10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile"
             app:tint="@color/blue" />
 
+        <ImageButton
+            android:id="@+id/ibLogout"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="120dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logout"
+            app:tint="@color/blue"></ImageButton>
+
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

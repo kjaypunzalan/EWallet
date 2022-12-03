@@ -33,7 +33,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="420dp"
-        android:text="Send to"
+        android:text="Send to "
+        android:textColor="@color/blue_gray"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSendName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="420dp"
+        android:text="Name"
         android:textColor="@color/blue_gray"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,5 +122,49 @@
         android:backgroundTint="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/ibHome"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="120dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home"
+            app:tint="@color/blue">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/ibProfile"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:layout_marginStart=".10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile"
+            app:tint="@color/blue" />
+
+        <ImageButton
+            android:id="@+id/ibLogout"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="120dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logout"
+            app:tint="@color/blue"></ImageButton>
+
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
