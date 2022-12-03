@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
+import com.iacademy.e_wallet.models.ContactsModel;
+import com.iacademy.e_wallet.utils.BarcodeScanner;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,14 +56,6 @@ public class DashboardActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mReference = FirebaseDatabase.getInstance().getReference();
 
-
-        ibProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
-            }
-        });
-
         ibHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,22 +84,20 @@ public class DashboardActivity extends AppCompatActivity {
     private void initializeContent() {
 
         mAuth = FirebaseAuth.getInstance();
-        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid());
+        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("WalletDetails");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    //get value
-                    tvBalance.setText(data.child("balance").getValue().toString());
-                    tvHomeName.setText(data.child("name").getValue().toString());
-                    Picasso.get().load(data.child("barCodeURL").getValue().toString()).into(ivQR);
-                }
+                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                double currentBalance = data.getBalance();
+                tvBalance.setText(String.valueOf(currentBalance));
+                tvHomeName.setText(data.getName());
+                Picasso.get().load(data.getBarCodeURL()).into(ivQR);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -121,7 +114,15 @@ public class DashboardActivity extends AppCompatActivity {
         ibScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DashboardActivity.this, SendMoneyActivity.class));
+                startActivity(new Intent(DashboardActivity.this, BarcodeScanner.class));
+                finish();
+            }
+        });
+
+        ibCashin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, CashInActivity.class));
                 finish();
             }
         });

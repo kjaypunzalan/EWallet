@@ -1,125 +1,145 @@
 package com.iacademy.e_wallet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseArray;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
-
-import java.io.IOException;
+import com.iacademy.e_wallet.models.ContactsModel;
 
 public class SendMoneyActivity extends AppCompatActivity {
 
+    //declare layout variables
     private EditText etNumber, etAmount;
     private TextView tvAvailBalance;
     private Button bSendMoney;
 
-    //barcode
-    private static final int REQUEST_CAMERA_PERMISSION = 201;
-    private BarcodeDetector barcodeDetector;
-    private CameraSource cameraSource;
-    private SurfaceView surfaceView;
-    String intentData = "";
+    //barcode/receiver variable
+    private String barcodeValue, receiverName, receiverNumber;
+    private double receiverBalance;
 
+    //sender variables
+    private String senderName, senderNumber;
+    private double senderBalance;
+
+    //firebase variables
+    private FirebaseAuth mAuth;
+    private DatabaseReference receiverReference, senderReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_money);
 
+        //initialize variables
         etNumber = findViewById(R.id.etNumber);
         etAmount = findViewById(R.id.etAmount);
         tvAvailBalance = findViewById(R.id.tvAvailBalance);
         bSendMoney = findViewById(R.id.bSendMoney);
 
-        //Photo
-        surfaceView = findViewById(R.id.surfaceView);
-        surfaceView.setZ(100);
+        //FIREBASE
+        mAuth = FirebaseAuth.getInstance();
+
+        //get barcode value
+        Bundle intent_data = getIntent().getExtras();
+        if (intent_data != null) {
+            barcodeValue = intent_data.getString("barcode");
+        }
+
+        initializeContent();
+        initializeButtons();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        cameraSource.release();
-    }
+    private void initializeContent() {
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initialiseDetectorsAndSources();
-    }
-
-    private void initialiseDetectorsAndSources() {
-
-        //START SCANNER INITIALIZATION
-        Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
-        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.ALL_FORMATS).build();
-        cameraSource = new CameraSource.Builder(this, barcodeDetector)
-                .setRequestedPreviewSize(1920, 1080)
-                .setAutoFocusEnabled(true) //you should add this feature
-                .build();
-
-        //GET PERMISSION
-        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+        //GET RECEIVER INFORMATION
+        receiverReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(barcodeValue).child("WalletDetails");
+        receiverReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                try {
-                    if (ActivityCompat.checkSelfPermission(SendMoneyActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                        cameraSource.start(surfaceView.getHolder());
-                    } else {
-                        ActivityCompat.requestPermissions(SendMoneyActivity.this, new
-                                String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-                    }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                receiverName = data.getName();
+                receiverNumber = data.getNumber();
+                receiverBalance = data.getBalance();
+
+                //set layout value
+                etNumber.setText(receiverNumber);
             }
 
             @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                cameraSource.stop();
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
             }
         });
 
-        //START BARCODE DETECTOR
-        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+        //GET SENDER INFORMATION
+        senderReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("WalletDetails");
+        senderReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void release() {
-                Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                senderName = data.getName();
+                senderNumber = data.getNumber();
+                senderBalance = data.getBalance();
+
+                //set layout value
+                tvAvailBalance.setText(String.valueOf(senderBalance));
+
             }
 
             @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                if (barcodes.size() != 0) {
-                    etNumber.post(new Runnable() {              /****** ETAMOUNT *******/
-                        @Override
-                        public void run() {
-                            intentData = barcodes.valueAt(0).displayValue;
-                            etNumber.setText(intentData);
-                        }
-                    });
-                }
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void initializeButtons() {
+
+        bSendMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double amountToSend = Double.parseDouble(etAmount.getText().toString());
+                double receiverTotal = receiverBalance + amountToSend;
+                double senderTotal = senderBalance - amountToSend;
+                boolean isSender = true;
+
+                if (amountToSend >  senderBalance)
+                    Toast.makeText(getApplicationContext(), "Insufficient Fund.", Toast.LENGTH_SHORT).show();
+                else if (amountToSend < 0)
+                    Toast.makeText(getApplicationContext(), "Negative value is not allowed", Toast.LENGTH_SHORT).show();
+                else if (amountToSend <=  senderBalance) {
+
+                    //send money
+                    ContactsModel.sendMoney(
+                            amountToSend, receiverTotal, senderTotal,
+                            receiverName, receiverNumber,
+                            senderName, senderNumber,
+                            barcodeValue, mAuth, true);
+
+                    //start activity
+                    startActivity(new Intent(SendMoneyActivity.this, LoadScreenActivity.class));
+                    finish();
+                }
+
+            }
+        });
+    }
+
 }

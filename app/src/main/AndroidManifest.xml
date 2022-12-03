@@ -48,6 +48,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".utils.BarcodeScanner"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activities.LoadScreenActivity"
             android:exported="false" /> <!-- SPLASH SCREEN START-UP ACTIVITY -->
         <activity

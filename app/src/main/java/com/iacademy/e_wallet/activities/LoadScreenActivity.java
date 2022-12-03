@@ -22,6 +22,6 @@ public class LoadScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(LoadScreenActivity.this, DashboardActivity.class));
                 finish();
             }
-        }, 5000);
+        }, 2000);
     }
 }

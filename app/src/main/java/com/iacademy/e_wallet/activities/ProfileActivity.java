@@ -42,6 +42,8 @@ public class ProfileActivity extends AppCompatActivity {
         etProfileName = findViewById(R.id.etProfileName);
         etNewPassword = findViewById(R.id.etNewPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        tvEditProfile = findViewById(R.id.tvEditProfile);
+        tvLogout = findViewById(R.id.tvLogout);
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
         ivProfile = findViewById(R.id.ivProfile);
@@ -121,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Successfully edited contact. Please wait for refresh.", Toast.LENGTH_SHORT).show();
 
                     //write to file
-                    ContactsModel.editFile(name, email, number, mAuth);
+                    ContactsModel.editProfile(name, email, number, mAuth);
                     startActivity(new Intent(ProfileActivity.this, LoadScreenActivity.class));
                     finish();
                 }
