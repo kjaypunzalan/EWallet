@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
-import com.iacademy.e_wallet.models.ContactsModel;
+import com.iacademy.e_wallet.models.WalletModel;
 
 public class SendMoneyActivity extends AppCompatActivity {
 
@@ -72,7 +71,7 @@ public class SendMoneyActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                WalletModel data = snapshot.getValue(WalletModel.class);
                 receiverName = data.getName();
                 receiverNumber = data.getNumber();
                 receiverBalance = data.getBalance();
@@ -93,7 +92,7 @@ public class SendMoneyActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                WalletModel data = snapshot.getValue(WalletModel.class);
                 senderName = data.getName();
                 senderNumber = data.getNumber();
                 senderBalance = data.getBalance();
@@ -127,7 +126,7 @@ public class SendMoneyActivity extends AppCompatActivity {
                 else if (amountToSend <=  senderBalance) {
 
                     //send money
-                    ContactsModel.sendMoney(
+                    WalletModel.sendMoney(
                             amountToSend, receiverTotal, senderTotal,
                             receiverName, receiverNumber,
                             senderName, senderNumber,

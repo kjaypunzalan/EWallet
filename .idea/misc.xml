@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_cash_in.xml" value="0.24818840579710144" />
-        <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_dashboard.xml" value="0.152" />
+        <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_contacts.xml" value="0.12447916666666667" />
+        <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_dashboard.xml" value="0.4" />
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_load_screen.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_login.xml" value="0.536" />
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_main.xml" value="0.24818840579710144" />
@@ -14,7 +15,7 @@
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/activity_splash_screen.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/barcode_scanner.xml" value="0.12447916666666667" />
         <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/item_contactlist.xml" value="0.24818840579710144" />
-        <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/item_transaction_history_list.xml" value="0.24818840579710144" />
+        <entry key="..\:/Users/Karl John Punzalan/AndroidStudioProjects/EWallet/EWallet/app/src/main/res/layout/item_transaction_history_list.xml" value="0.264" />
       </map>
     </option>
   </component>

@@ -18,8 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
-import com.iacademy.e_wallet.models.ContactsModel;
-import com.squareup.picasso.Picasso;
+import com.iacademy.e_wallet.models.WalletModel;
 
 public class CashInActivity extends AppCompatActivity {
 
@@ -54,7 +53,7 @@ public class CashInActivity extends AppCompatActivity {
         senderReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                WalletModel data = snapshot.getValue(WalletModel.class);
                 senderBalance = data.getBalance();
                 tvCurrentBalance.setText(String.valueOf(senderBalance));
             }
@@ -79,7 +78,7 @@ public class CashInActivity extends AppCompatActivity {
                     double senderTotal = senderBalance + amountToSend;
 
                     //send money
-                    ContactsModel.depositMoney(amountToSend, senderTotal, mAuth);
+                    WalletModel.depositMoney(amountToSend, senderTotal, mAuth);
 
                     //start activity
                     startActivity(new Intent(CashInActivity.this, LoadScreenActivity.class));

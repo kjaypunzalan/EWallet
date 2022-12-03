@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,24 +13,21 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
-import com.iacademy.e_wallet.models.ContactsModel;
+import com.iacademy.e_wallet.models.WalletModel;
 import com.iacademy.e_wallet.utils.BarcodeScanner;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class DashboardActivity extends AppCompatActivity {
 
     //declare variables
     private TextView tvHomeName, tvBalance;
-    private ImageButton ibCashin, ibScan, ibHome, ibProfile;
+    private ImageButton ibCashin, ibScan, ibHome, ibProfile, ibHistory;
     private ImageView ivQR;
 
     //firebase variables
@@ -51,6 +47,7 @@ public class DashboardActivity extends AppCompatActivity {
         ibScan= findViewById(R.id.ibScan);
         ibHome= findViewById(R.id.ibHome);
         ibProfile= findViewById(R.id.ibProfile);
+        ibHistory = findViewById(R.id.ib_History);
 
         //FIREBASE
         mAuth = FirebaseAuth.getInstance();
@@ -88,7 +85,7 @@ public class DashboardActivity extends AppCompatActivity {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ContactsModel data = snapshot.getValue(ContactsModel.class);
+                WalletModel data = snapshot.getValue(WalletModel.class);
                 double currentBalance = data.getBalance();
                 tvBalance.setText(String.valueOf(currentBalance));
                 tvHomeName.setText(data.getName());
@@ -123,6 +120,14 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DashboardActivity.this, CashInActivity.class));
+                finish();
+            }
+        });
+
+        ibHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, TransactionHistoryActivity.class));
                 finish();
             }
         });

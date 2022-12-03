@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
-import com.iacademy.e_wallet.models.ContactsModel;
+import com.iacademy.e_wallet.models.WalletModel;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -123,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Successfully edited contact. Please wait for refresh.", Toast.LENGTH_SHORT).show();
 
                     //write to file
-                    ContactsModel.editProfile(name, email, number, mAuth);
+                    WalletModel.editProfile(name, email, number, mAuth);
                     startActivity(new Intent(ProfileActivity.this, LoadScreenActivity.class));
                     finish();
                 }

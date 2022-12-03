@@ -6,7 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".activities.DashboardActivity"
     android:background="@drawable/bg_dashboard">
-
+    <ImageButton
+        android:id="@+id/ib_History"
+        android:layout_width="61dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468"
+        app:tint="@color/blue" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,6 +150,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="380dp"
+        android:gravity="center"
+        android:text="History"
+        android:textColor="@color/blue_gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -166,6 +192,9 @@
             android:src="@drawable/ic_profile"
             app:tint="@color/blue" />
 
+
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
