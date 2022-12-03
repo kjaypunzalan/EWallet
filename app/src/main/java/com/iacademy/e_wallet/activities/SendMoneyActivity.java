@@ -47,6 +47,8 @@ public class SendMoneyActivity extends AppCompatActivity {
     //SEND SMS
     private static final int PERMISSIONS_REQUEST_SMS_SEND = 1;
 
+    double amountToSend, receiverTotal, senderTotal;
+
     //firebase variables
     private FirebaseAuth mAuth;
     private DatabaseReference receiverReference, senderReference;
@@ -89,12 +91,15 @@ public class SendMoneyActivity extends AppCompatActivity {
 
         switch(requestCode) {
             case PERMISSIONS_REQUEST_SMS_SEND:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults.length > 0) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     initializeButtons();
+                } else {
+                    // Permission Denied
                 }
                 break;
             default:
                 Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show(); finish();
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
         }
     }
@@ -144,6 +149,24 @@ public class SendMoneyActivity extends AppCompatActivity {
         });
     }
 
+    public void sendSMS() {
+        //send sms
+        SmsManager sms = SmsManager.getDefault();
+        String senderMessage, receiverMessage;
+
+        //SEND MESSAGE
+        senderMessage = "You have SENT PHP " + amountToSend + " of PKash to " + receiverName
+                + " (" + receiverNumber + "). Your new balance is PHP " + senderTotal;
+        receiverMessage = "You have RECEIVED PHP " + amountToSend + " of PKash from " + senderName
+                + " (" + senderNumber + "). Your new balance is PHP " + receiverTotal;
+
+        //SEND TEXT MESSAGE DEPENDING ON MESSAGE LENGTH
+        ArrayList<String> messagelist = sms.divideMessage(senderMessage);
+        sms.sendMultipartTextMessage(senderNumber, null, messagelist, null, null);
+        messagelist = sms.divideMessage(receiverMessage);
+        sms.sendMultipartTextMessage(receiverNumber, null, messagelist, null, null);
+    }
+
     private void initializeButtons() {
 
         ibHome.setOnClickListener(new View.OnClickListener() {
@@ -174,9 +197,11 @@ public class SendMoneyActivity extends AppCompatActivity {
         bSendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double amountToSend = Double.parseDouble(etAmount.getText().toString());
-                double receiverTotal = receiverBalance + amountToSend;
-                double senderTotal = senderBalance - amountToSend;
+
+                //INITIALIZE COMPUTATIONS
+                amountToSend = Double.parseDouble(etAmount.getText().toString());
+                receiverTotal = receiverBalance + amountToSend;
+                senderTotal = senderBalance - amountToSend;
 
                 if (amountToSend >  senderBalance)
                     Toast.makeText(getApplicationContext(), "Insufficient Fund.", Toast.LENGTH_SHORT).show();
@@ -192,34 +217,21 @@ public class SendMoneyActivity extends AppCompatActivity {
                             barcodeValue, mAuth);
 
                     //send SMS
-                    if(ContextCompat.checkSelfPermission(SendMoneyActivity.this, Manifest.permission.SEND_SMS)
-                            == PackageManager.PERMISSION_GRANTED){
-
-                        //send sms
-                        SmsManager sms = SmsManager.getDefault();
-                        String senderMessage, receiverMessage;
-
-                        //SEND MESSAGE
-                        senderMessage = "You have SENT PHP " + amountToSend + " of PKash to " + receiverName
-                                + " (" + receiverNumber + "). Your new balance is PHP " + senderTotal;
-                        receiverMessage = "You have RECEIVED PHP " + amountToSend + " of PKash from " + senderName
-                                + " (" + senderNumber + "). Your new balance is PHP " + receiverTotal;
-
-                        //SEND TEXT MESSAGE DEPENDING ON MESSAGE LENGTH
-                        ArrayList<String> messagelist = sms.divideMessage(senderMessage);
-                        sms.sendMultipartTextMessage(senderNumber, null, messagelist, null, null);
-                        messagelist = sms.divideMessage(receiverMessage);
-                        sms.sendMultipartTextMessage(receiverNumber, null, messagelist, null, null);
-                    } else{
-                        ActivityCompat.requestPermissions(SendMoneyActivity.this, new String[]{Manifest
-                                .permission.SEND_SMS}, PERMISSIONS_REQUEST_SMS_SEND);
+                    boolean loop = true;
+                    while (loop) {
+                        if(ContextCompat.checkSelfPermission(SendMoneyActivity.this, Manifest.permission.SEND_SMS)
+                                == PackageManager.PERMISSION_GRANTED){
+                            sendSMS();
+                            break;
+                        } else{
+                            ActivityCompat.requestPermissions(SendMoneyActivity.this, new String[]{Manifest
+                                    .permission.SEND_SMS}, PERMISSIONS_REQUEST_SMS_SEND);
+                        }
                     }
 
-
-
-                    //start activity
                     startActivity(new Intent(SendMoneyActivity.this, LoadScreenActivity.class));
                     finish();
+
                 }
 
             }

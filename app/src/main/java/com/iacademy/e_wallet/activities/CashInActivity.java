@@ -41,6 +41,9 @@ public class CashInActivity extends AppCompatActivity {
     private String senderNumber;
     private double senderBalance;
 
+    //COMPUTATIONS
+    private double amountToSend, senderTotal;
+
     //SEND SMS
     private static final int PERMISSIONS_REQUEST_SMS_SEND = 1;
 
@@ -74,13 +77,15 @@ public class CashInActivity extends AppCompatActivity {
 
         switch(requestCode) {
             case PERMISSIONS_REQUEST_SMS_SEND:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults.length > 0) {
-                    double amountToSend =0, senderTotal=0;
-                    sendSMS(amountToSend, senderTotal);
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    initializeButtons();
+                } else {
+                    // Permission Denied
                 }
                 break;
             default:
                 Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show(); finish();
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
         }
     }
@@ -102,9 +107,11 @@ public class CashInActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
-    public void sendSMS(double amountToSend, double senderTotal) {
+    public void sendSMS() {
         //send sms
         SmsManager sms = SmsManager.getDefault();
         String senderMessage, receiverMessage;
@@ -114,8 +121,14 @@ public class CashInActivity extends AppCompatActivity {
                 + "Your new balance is PHP " + senderTotal;
 
         //SEND TEXT MESSAGE DEPENDING ON MESSAGE LENGTH
-        ArrayList<String> messagelist = sms.divideMessage(senderMessage);
-        sms.sendTextMessage(senderNumber, null, senderMessage, null, null);
+        int length = senderMessage.length();
+        if(length > 160) {
+            ArrayList<String> messagelist = sms.divideMessage(senderMessage);
+            sms.sendMultipartTextMessage(senderNumber, null, messagelist, null, null);
+        } else {
+            sms.sendTextMessage(senderNumber, null, senderMessage, null, null); //getNumber from contact list
+        }
+        Toast.makeText(getApplicationContext(), "Sent message", Toast.LENGTH_SHORT).show();
     }
 
     private void initializeButtons() {
@@ -148,31 +161,34 @@ public class CashInActivity extends AppCompatActivity {
         bConfirmCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double amountToSend = Double.parseDouble(etAmount.getText().toString());
+
+                //COMPUTATIONS
+                amountToSend = Double.parseDouble(etAmount.getText().toString());
+                senderTotal = senderBalance + amountToSend;
 
                 if (amountToSend < 0) {
                     Toast.makeText(getApplicationContext(), "Negative value is not allowed", Toast.LENGTH_SHORT).show();
                 } else {
-                    double senderTotal = senderBalance + amountToSend;
 
                     //send money
                     WalletModel.depositMoney(amountToSend, senderTotal, mAuth);
 
                     //send SMS
-                    if(ContextCompat.checkSelfPermission(CashInActivity.this, Manifest.permission.SEND_SMS)
-                            == PackageManager.PERMISSION_GRANTED){
-                        sendSMS(amountToSend, senderTotal);
-                    } else{
-                        ActivityCompat.requestPermissions(CashInActivity.this, new String[]{Manifest
-                                .permission.SEND_SMS}, PERMISSIONS_REQUEST_SMS_SEND);
+                    boolean loop = true;
+                    while (loop) {
+                        if(ContextCompat.checkSelfPermission(CashInActivity.this, Manifest.permission.SEND_SMS)
+                                == PackageManager.PERMISSION_GRANTED){
+                            sendSMS();
+                            break;
+                        } else{
+                            ActivityCompat.requestPermissions(CashInActivity.this, new String[]{Manifest
+                                    .permission.SEND_SMS}, PERMISSIONS_REQUEST_SMS_SEND);
+                        }
                     }
 
-
-
-
-                    //start activity
                     startActivity(new Intent(CashInActivity.this, LoadScreenActivity.class));
                     finish();
+
                 }
 
             }

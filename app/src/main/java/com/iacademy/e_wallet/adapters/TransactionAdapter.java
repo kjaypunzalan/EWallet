@@ -16,6 +16,8 @@ import com.iacademy.e_wallet.models.WalletModel;
 import com.iacademy.e_wallet.utils.RecyclerOnItemClickListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
@@ -52,21 +54,24 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         switch (type){
             case "DEPOSIT":
-                holder.tvAmount.setText(String.valueOf(listModels.get(position).getAmountSent()));
+                holder.tvAmount.setText("PHP " + String.valueOf(listModels.get(position).getAmountSent()));
+                holder.tvBalance.setText("New Balance: PHP " + String.valueOf(listModels.get(position).getSenderNewBalance()));
                 holder.tvName.setText("");
                 holder.tvNumber.setText("");
                 holder.tvTimeAndDate.setText(listModels.get(position).getTimeAndDate());
                 holder.tvTransactionType.setText(type);
                 break;
             case "RECEIVED MONEY":
-                holder.tvAmount.setText(String.valueOf(listModels.get(position).getAmountReceived()));
+                holder.tvAmount.setText("PHP " + String.valueOf(listModels.get(position).getAmountReceived()));
+                holder.tvBalance.setText("New Balance: PHP " + String.valueOf(listModels.get(position).getReceiverNewBalance()));
                 holder.tvName.setText(String.valueOf(listModels.get(position).getSenderName()));
                 holder.tvNumber.setText(String.valueOf(listModels.get(position).getSenderNumber()));
                 holder.tvTimeAndDate.setText(listModels.get(position).getTimeAndDate());
                 holder.tvTransactionType.setText(type);
                 break;
             case "SENT MONEY":
-                holder.tvAmount.setText(String.valueOf(listModels.get(position).getAmountSent()));
+                holder.tvAmount.setText("PHP " + String.valueOf(listModels.get(position).getAmountSent()));
+                holder.tvBalance.setText("New Balance: PHP " + String.valueOf(listModels.get(position).getSenderNewBalance()));
                 holder.tvName.setText(String.valueOf(listModels.get(position).getReceiverName()));
                 holder.tvNumber.setText(String.valueOf(listModels.get(position).getReceiverNumber()));
                 holder.tvTimeAndDate.setText(listModels.get(position).getTimeAndDate());
@@ -91,6 +96,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public TextView tvNumber;
         public TextView tvTimeAndDate;
         public TextView tvTransactionType;
+        public TextView tvBalance;
 
         //instantiate variable
         public ViewHolder(@NonNull View itemView) {
@@ -101,6 +107,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             tvNumber = itemView.findViewById(R.id.tv_number);
             tvTimeAndDate = itemView.findViewById(R.id.tv_timeAndDate);
             tvTransactionType = itemView.findViewById(R.id.tv_transactionType);
+            tvBalance = itemView.findViewById(R.id.tv_balance);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override

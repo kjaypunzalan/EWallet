@@ -84,6 +84,7 @@
         android:layout_marginStart="152dp"
         android:layout_marginTop="576dp"
         android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
         android:text="Confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
