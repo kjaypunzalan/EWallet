@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.iacademy.e_wallet.R;
-import com.iacademy.e_wallet.models.ContactsModel;
+import com.iacademy.e_wallet.models.WalletModel;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -99,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(RegisterActivity.this, "Please check your email to " +
                                             "verify your account", Toast.LENGTH_SHORT).show();
                                     //WRITE CONTACT TO FILE
-                                    ContactsModel.writeNewUser(name, email, number, balance, getApplicationContext(), mAuth);
+                                    WalletModel.writeNewUser(name, email, number, balance, getApplicationContext(), mAuth);
                                 }
                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             } else{

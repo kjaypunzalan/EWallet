@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg_icons"
+    tools:context=".activities.TransactionHistoryActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibHome"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="45dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home"
+            app:tint="@color/blue"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/ibProfile"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="45dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile"
+            app:tint="@color/blue" />
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    <TextView
+        android:layout_width="302dp"
+        android:layout_height="57dp"
+        android:text="Transaction History"
+        android:textColor="@color/dark"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_transactionHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.164" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_transactionHistory"
+        android:layout_width="366dp"
+        android:layout_height="577dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

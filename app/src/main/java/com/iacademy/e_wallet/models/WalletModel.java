@@ -1,21 +1,11 @@
 package com.iacademy.e_wallet.models;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +22,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.iacademy.e_wallet.adapters.ContactsAdapter;
+import com.iacademy.e_wallet.adapters.TransactionAdapter;
 import com.iacademy.e_wallet.utils.RecyclerOnItemClickListener;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
@@ -42,7 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class ContactsModel {
+public class WalletModel {
 
     //user information
     private String name, email, number, barCodeURL;
@@ -50,9 +40,9 @@ public class ContactsModel {
 
 
     //constructor
-    public ContactsModel(){};
+    public WalletModel(){};
     //create user constructor
-    public ContactsModel(String name, String email, String number, String barCodeURL, double balance) {
+    public WalletModel(String name, String email, String number, String barCodeURL, double balance) {
         this.name = name;
         this.email = email;
         this.number = number;
@@ -82,36 +72,37 @@ public class ContactsModel {
      * A. read from firebase
      *------------------------*/
     public static void readFromFile(
-            ArrayList<ContactsModel> listModels,
+            ArrayList<TransactionModel> listModels,
             ArrayList<String> keys,
-            RecyclerView rvList,
+            RecyclerView rvTransactionList,
             Context context,
             DatabaseReference mReference,
             FirebaseAuth mAuth,
             RecyclerOnItemClickListener item) {
 
+//        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("TransactionHistory");
+//        mReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                for(DataSnapshot data : snapshot.getChildren()){
+//                    listModels.add(data.getValue(TransactionModel.class));
+//                    keys.add(data.getKey());
+//                }
+//
+//                TransactionAdapter contactsAdapter = new TransactionAdapter(listModels, context);
+//                contactsAdapter.notifyDataSetChanged();
+//                rvTransactionList.setAdapter(new TransactionAdapter(listModels, context, this));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(context, "FAILURE TO READ DATABASE", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        mAuth = FirebaseAuth.getInstance();
-        mReference = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for(DataSnapshot data : snapshot.getChildren()){
-                    listModels.add(data.getValue(ContactsModel.class));
-                    keys.add(data.getKey());
-                }
 
-                ContactsAdapter contactsAdapter = new ContactsAdapter(listModels, context);
-                contactsAdapter.notifyDataSetChanged();
-                rvList.setAdapter(new ContactsAdapter(listModels, context, item));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(context, "FAILURE TO READ DATABASE", Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
@@ -176,7 +167,7 @@ public class ContactsModel {
                             referenceImage.setValue(barCodeReference);
 
                             //POPULATE DATA
-                            ContactsModel contactInfo = new ContactsModel(name, email, number, barCodeReference, balance);
+                            WalletModel contactInfo = new WalletModel(name, email, number, barCodeReference, balance);
                             referenceContact.setValue(contactInfo);
 
                             //SEND TOAST
@@ -287,12 +278,12 @@ public class ContactsModel {
         } else {
             //you have received PHP AMOUNTSENT from SENDERNAME (SENDERNUMBER) on DATAANDTIME.
             //your new balance is PHP RECEIVERBALANCE
-            TransactionModel addHistory = new TransactionModel(senderName, senderNumber, timeAndDate, receiverNewBalance, amountSent);
-            receiverTransactionRef.child("senderName").setValue(addHistory.getSenderName());
-            receiverTransactionRef.child("senderNumber").setValue(addHistory.getSenderNumber());
-            receiverTransactionRef.child("timeAndDate").setValue(addHistory.getTimeAndDate());
-            receiverTransactionRef.child("receiverNewBalance").setValue(addHistory.getReceiverNewBalance());
-            receiverTransactionRef.child("amountReceived").setValue(addHistory.getAmountReceived());
+            TransactionModel receiveHistory = new TransactionModel(senderName, senderNumber, timeAndDate, receiverNewBalance, amountSent);
+            receiverTransactionRef.child("senderName").setValue(receiveHistory.getSenderName());
+            receiverTransactionRef.child("senderNumber").setValue(receiveHistory.getSenderNumber());
+            receiverTransactionRef.child("timeAndDate").setValue(receiveHistory.getTimeAndDate());
+            receiverTransactionRef.child("receiverNewBalance").setValue(receiveHistory.getReceiverNewBalance());
+            receiverTransactionRef.child("amountReceived").setValue(receiveHistory.getAmountReceived());
             receiverTransactionRef.child("transactionType").setValue("RECEIVED MONEY");
         }
 
