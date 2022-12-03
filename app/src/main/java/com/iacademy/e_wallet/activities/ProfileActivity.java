@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private EditText etProfileName, etProfileNumber, etProfileEmail, etNewPassword, etConfirmPassword;
+    private EditText etProfileName, etProfileNumber, etProfileEmail;
     private TextView tvLogout, tvEditProfile;
     private ImageButton ibHome, ibProfile, ibLogout;
     private ImageView ivProfile;
@@ -41,8 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
         etProfileEmail = findViewById(R.id.etProfileEmail);
         etProfileNumber = findViewById(R.id.etProfileNumber);
         etProfileName = findViewById(R.id.etProfileName);
-        etNewPassword = findViewById(R.id.etNewPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         tvEditProfile = findViewById(R.id.tvEditProfile);
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
@@ -96,6 +94,15 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ibLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     private void editProfile() {
@@ -107,7 +114,6 @@ public class ProfileActivity extends AppCompatActivity {
                 String name = etProfileName.getText().toString();
                 String email = etProfileEmail.getText().toString();
                 String number = etProfileNumber.getText().toString();
-                String password = etNewPassword.getText().toString();
 
                 //A. Empty Validation
                 if (name.equals(""))
