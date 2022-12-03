@@ -53,6 +53,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         switch (type){
             case "DEPOSIT":
                 holder.tvAmount.setText(String.valueOf(listModels.get(position).getAmountSent()));
+                holder.tvName.setText("");
+                holder.tvNumber.setText("");
                 holder.tvTimeAndDate.setText(listModels.get(position).getTimeAndDate());
                 holder.tvTransactionType.setText(type);
                 break;

@@ -20,12 +20,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iacademy.e_wallet.R;
 import com.iacademy.e_wallet.models.WalletModel;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private EditText etProfileName, etProfileNumber, etProfileEmail, etNewPassword, etConfirmPassword;
     private TextView tvLogout, tvEditProfile;
-    private ImageButton ibHome, ibProfile;
+    private ImageButton ibHome, ibProfile, ibLogout;
     private ImageView ivProfile;
 
     //firebase variables
@@ -45,35 +46,54 @@ public class ProfileActivity extends AppCompatActivity {
         tvEditProfile = findViewById(R.id.tvEditProfile);
         ibHome = findViewById(R.id.ibHome);
         ibProfile = findViewById(R.id.ibProfile);
+        ibLogout = findViewById(R.id.ibLogout);
         ivProfile = findViewById(R.id.ivProfile);
+
 
         //FIREBASE
         mAuth = FirebaseAuth.getInstance();
         mReference = FirebaseDatabase.getInstance().getReference();
 
         initializeContent();
+        initializeButtons();
         editProfile();
 
     }
     private void initializeContent() {
 
-        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid());
+        mAuth = FirebaseAuth.getInstance();
+        mReference = FirebaseDatabase.getInstance().getReference().child("PKash").child("Users").child(mAuth.getCurrentUser().getUid()).child("WalletDetails");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    //get value
-                    etProfileName.setText(data.child("name").getValue().toString());
-                    etProfileNumber.setText(data.child("number").getValue().toString());
-                    etProfileEmail.setText(data.child("email").getValue().toString());
-                    //Picasso.get().load(data.child("barCodeURL").getValue().toString()).into(ivQR);
-                }
+                WalletModel data = snapshot.getValue(WalletModel.class);
+                etProfileName.setText(data.getName());
+                etProfileNumber.setText(data.getNumber());
+                etProfileEmail.setText(data.getEmail());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Failure to read data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initializeButtons() {
+
+        ibHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
+                finish();
+            }
+        });
+
+        ibProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
+                finish();
             }
         });
     }
@@ -116,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
                 /**************************
                  * E. edit to file
                  *------------------------*/
-                if (email.endsWith("@gmail.com") && number.matches("^[0-9]{11}$") && name.matches("^([^0-9]*)$")) {
+                if (number.matches("^[0-9]{11}$") && name.matches("^([^0-9]*)$")) {
 
                     //show popup
                     Toast.makeText(getApplicationContext(), "Successfully edited contact. Please wait for refresh.", Toast.LENGTH_SHORT).show();
