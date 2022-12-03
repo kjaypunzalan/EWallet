@@ -35,7 +35,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Rec
     private ArrayList<TransactionModel> listModels = new ArrayList<>();
     private ArrayList<String> keys = new ArrayList<>();
 
-    private ImageButton ibHome, ibProfile;
+    private ImageButton ibTransHome, ibTransProfile, ibLogout;
     private String name;
     private String email;
     private String number;
@@ -55,8 +55,9 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Rec
 
         //instantiate variables
         rvTransactionList = findViewById(R.id.rv_transactionHistory);
-        ibHome= findViewById(R.id.ibHome);
-        ibProfile= findViewById(R.id.ibProfile);
+        ibTransHome= findViewById(R.id.ibTransHome);
+        ibTransProfile= findViewById(R.id.ibTransProfile);
+        ibLogout = findViewById(R.id.ibLogout);
 
         //FIREBASE
         mAuth = FirebaseAuth.getInstance();
@@ -101,7 +102,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Rec
 
     private void initializeButtons() {
 
-        ibHome.setOnClickListener(new View.OnClickListener() {
+        ibTransHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(TransactionHistoryActivity.this, DashboardActivity.class));
@@ -109,7 +110,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Rec
             }
         });
 
-        ibProfile.setOnClickListener(new View.OnClickListener() {
+        ibTransProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(TransactionHistoryActivity.this, ProfileActivity.class));

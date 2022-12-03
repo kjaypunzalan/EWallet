@@ -27,7 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     //declare variables
     private TextView tvHomeName, tvBalance;
-    private ImageButton ibCashin, ibScan, ibHome, ibProfile, ibHistory;
+    private ImageButton ibCashin, ibScan, ibHome, ibProfile, ibHistory, ibLogout;
     private ImageView ivQR;
 
     //firebase variables
@@ -48,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
         ibHome= findViewById(R.id.ibHome);
         ibProfile= findViewById(R.id.ibProfile);
         ibHistory = findViewById(R.id.ib_History);
+        ibLogout = findViewById(R.id.ibLogout);
 
         //FIREBASE
         mAuth = FirebaseAuth.getInstance();
